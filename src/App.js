@@ -1,22 +1,12 @@
-import "./App.css";
+import Home from "./Home";
+import Navbar from "./Navbar";
 
 function App() {
-  const title = "Welcome to the new blog";
-  const likes = 50; // react converts every type to string
-  const link = "http://www.google.com";
-
   return (
     <div className="App">
+      <Navbar />
       <div className="content">
-        <h1>{title}</h1>
-        <p>Liked by {likes}</p>
-
-        <p>{10}</p>
-        <p>{"hello"}</p>
-        <p>{[1, 2, 3, 4, 5]}</p>
-        <p>{Math.random()}</p>
-
-        <a href={link}>Google site</a>
+        <Home />
       </div>
     </div>
   );
