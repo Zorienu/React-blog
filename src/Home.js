@@ -1,32 +1,17 @@
-import { useEffect, useState } from "react";
 import BlogList from "./BlogList";
+import useFetch from "./useFetch";
 
 const Home = () => {
-  const [blogs, setBlogs] = useState([
-    { title: "My new website", body: "lorem ipsum...", author: "mario", id: 1 },
-    { title: "Welcome party!", body: "lorem ipsum...", author: "luigi", id: 2 },
-    { title: "Web dev top tips", body: "lorem ipsum...", author: "mario", id: 3 },
-  ]);
-
-  const [name, setName] = useState("mario");
-
-  const handleDelete = (id) => {
-    const newBlogs = blogs.filter((b) => b.id !== id);
-    setBlogs(newBlogs);
-  };
-
-  useEffect(() => {
-    console.log('this will be executed just if the state of "name" is changed');
-    console.log(name);
-  }, [name]);
+  const { data: blogs, isPending, error } = useFetch("http://localhost:8000/blogs");
 
   return (
     <div className="home">
-      <BlogList blogs={blogs} title="All blogs" handleDelete={handleDelete} />
-      <BlogList blogs={blogs.filter((b) => b.author === "mario")} title="Mario blogs" handleDelete={handleDelete} />
-      <button onClick={() => setName("luigi")}>Change name</button>
+      {error && <div>{error}</div>}
+      {isPending && <h2>Loading...</h2>}
+      {blogs && <BlogList blogs={blogs} title="All blogs" />}
     </div>
   );
+  // the thing of the right will only be evaluated if the thing of the left side is not null
 };
 
 export default Home;
